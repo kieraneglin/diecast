@@ -20,6 +20,13 @@ impl Template {
         path
     }
 
+    pub fn files(&self) -> Vec<PathBuf> {
+        fs::read_dir(self.filepath())
+            .unwrap()
+            .map(|e| e.unwrap().path())
+            .collect() // TODO: Revisit.  Why is it so hard to get a list of files?
+    }
+
     pub fn concat_sub_dir(paths: &[&String]) -> PathBuf {
         let mut base = Self::base_dir();
         for path in paths {

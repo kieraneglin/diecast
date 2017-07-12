@@ -2,9 +2,11 @@ use std::fs;
 use colored::*;
 use std::process;
 use glob::glob;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use clap::ArgMatches;
 use fs_extra::dir::ls;
+use fs_extra::copy_items;
+use fs_extra::dir;
 use std::collections::HashSet;
 use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
@@ -31,12 +33,20 @@ fn load_template(template: &Template) {
 }
 
 fn replace_dir_contents(template: &Template) {
-    if dir_empty("../sandbox") || should_replace_contents() {
-        delete_directory_contents();
+    if dir_empty(".") || should_replace_contents() {
+        delete_dir_contents();
+        copy_template(template);
     }
 }
 
-fn delete_directory_contents() {
+fn copy_template(template: &Template) {
+    let files = template.files();
+    let copy_options = dir::CopyOptions::new();
+
+    copy_items(&files, ".", &copy_options).unwrap();
+}
+
+fn delete_dir_contents() {
     for entry in glob("*").unwrap().filter_map(Result::ok) {
         let filepath = &entry.display().to_string();
         let metadata = Path::new(&filepath).metadata().unwrap();
