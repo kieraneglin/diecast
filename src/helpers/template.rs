@@ -1,6 +1,6 @@
 use std::fs;
 use std::env;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 pub struct Template {
     pub language: String,
@@ -14,9 +14,9 @@ impl Template {
 
     pub fn filepath(&self) -> PathBuf {
         let mut path = Self::base_dir();
+
         path.push(&self.language);
         path.push(&self.name);
-
         path
     }
 
@@ -30,12 +30,12 @@ impl Template {
     }
 
     pub fn create_sub_dir(paths: &[&String]) {
-        fs::create_dir_all(Self::concat_sub_dir(paths));
+        fs::create_dir_all(Self::concat_sub_dir(paths)).unwrap();
     }
 
     pub fn create_dir_if_doesnt_exist(pathbuf: &PathBuf) {
         if !pathbuf.as_path().exists() {
-            fs::create_dir(pathbuf);
+            fs::create_dir(pathbuf).unwrap();
         }
     }
 

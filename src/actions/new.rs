@@ -10,7 +10,7 @@ use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
     let language = matches.value_of("language").unwrap().to_string();
-    let name = matches.value_of("template").unwrap().to_string();
+    let name = matches.value_of("name").unwrap().to_string();
     let template = Template { language, name };
 
     // Ensure the dir where templates are stored exists

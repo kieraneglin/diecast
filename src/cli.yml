@@ -13,6 +13,6 @@ args:
     - language:
         help: example positional argument from yaml
         index: 2
-    - template:
+    - name:
         help: example positional argument from yaml
-        index: 2
+        index: 3
