@@ -53,7 +53,12 @@ fn copy_directory_to_template(template: &Template) {
 }
 
 fn should_replace_template() -> bool {
-    print!("Template already exists. Replace it, deleting existing template? (y/n): ");
+    print!(
+        "{error}. Replace it, {consequence}? (y/n): ",
+        error = "Template already exists".yellow(),
+        consequence = "deleting existing template".red().underline(),
+    );
+
     stdout().flush().unwrap();
     let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
     stdin().read_line(&mut answer).unwrap();
@@ -72,7 +77,7 @@ fn should_replace_template() -> bool {
 fn print_success_message(template: &Template) {
     println!(
         "Template {} created for {}.",
-        &template.name.italic().yellow(),
-        &template.language.italic().yellow()
+        &template.name.italic().green(),
+        &template.language.italic().green()
     );
 }

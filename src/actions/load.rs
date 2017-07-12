@@ -1,12 +1,12 @@
 use std::fs;
 use colored::*;
-use std::process;
 use glob::glob;
-use std::path::{Path, PathBuf};
+use std::process;
+use fs_extra::dir;
+use std::path::Path;
 use clap::ArgMatches;
 use fs_extra::dir::ls;
 use fs_extra::copy_items;
-use fs_extra::dir;
 use std::collections::HashSet;
 use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
@@ -36,6 +36,7 @@ fn replace_dir_contents(template: &Template) {
     if dir_empty(".") || should_replace_contents() {
         delete_dir_contents();
         copy_template(template);
+        print_success_message(template);
     }
 }
 
@@ -61,11 +62,16 @@ fn delete_dir_contents() {
 
 fn dir_empty(path: &str) -> bool {
     let result = ls(path, &HashSet::new());
-    result.unwrap().items.len() == 0
+    result.unwrap().items.is_empty()
 }
 
 fn should_replace_contents() -> bool {
-    print!("Directory not empty. Delete contents and replace with template? (y/n): ");
+    print!(
+        "{error}. {action} in this directory and replace it with a template? (y/n): ",
+        error = "This directory not empty".yellow(),
+        action = "Delete everything".red().underline(),
+    );
+
     stdout().flush().unwrap();
     let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
     stdin().read_line(&mut answer).unwrap();
@@ -79,4 +85,12 @@ fn should_replace_contents() -> bool {
         println!("Unable to parse answer. Shutting down.");
         process::exit(1);
     }
+}
+
+fn print_success_message(template: &Template) {
+    println!(
+        "Successfully loaded {} for {}.",
+        &template.name.italic().green(),
+        &template.language.italic().green()
+    );
 }

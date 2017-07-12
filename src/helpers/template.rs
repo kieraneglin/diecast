@@ -17,6 +17,7 @@ impl Template {
 
         path.push(&self.language);
         path.push(&self.name);
+
         path
     }
 
@@ -29,6 +30,7 @@ impl Template {
 
     pub fn concat_sub_dir(paths: &[&String]) -> PathBuf {
         let mut base = Self::base_dir();
+
         for path in paths {
             base.push(path);
         }
@@ -49,6 +51,7 @@ impl Template {
     pub fn base_dir() -> PathBuf {
         let mut base = env::home_dir().unwrap();
         base.push(".diecast/");
+
         base
     }
 }
