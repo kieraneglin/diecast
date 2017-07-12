@@ -1,0 +1,18 @@
+name: diecast
+
+settings:
+    - ArgRequiredElseHelp
+
+args:
+    - action:
+        help: example positional argument from yaml
+        index: 1
+        possible_values:
+            - new
+            - load
+    - language:
+        help: example positional argument from yaml
+        index: 2
+    - template:
+        help: example positional argument from yaml
+        index: 2

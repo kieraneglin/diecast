@@ -1,0 +1,10 @@
+[package]
+name = "diecast"
+version = "0.1.0"
+authors = ["Kieran Eglin <kieran.eglin@gmail.com>"]
+
+[dependencies]
+glob = "0.2.11"
+colored = "1.5.2"
+fs_extra = "1.0.0"
+clap = {version = "2.25.0", features = ["yaml"]}
