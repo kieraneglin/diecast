@@ -18,9 +18,6 @@ pub fn main(matches: &ArgMatches) {
 }
 
 fn create_new_template(template: &Template) {
-
-    // Ensure the dir where templates are stored exists
-    Template::create_dir_if_doesnt_exist(&Template::base_dir());
     Template::create_sub_dir(&[&template.language]);
 
     verify_template_uniqueness(template);
