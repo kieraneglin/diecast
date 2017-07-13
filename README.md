@@ -1,5 +1,5 @@
 # Diecast
-#### A CLI template creation and management program in Rust
+A CLI template creation and management program in Rust
 
 ## Disclaimer
 Use at your own risk.  Misusing this program can cause you to delete the entire contents of a folder with no way to get it back.  You are warned before any action that would cause an overwrite, but it's up to you to ensure you're in a directory that should have it's contents overwritten.
@@ -10,6 +10,9 @@ I offer no warranty on this software and I take no responsibility for any data l
 
 ## Purpose
 Diecast provides an easy way to store, recall, and manage project templates.  This is for people who hate wasting time re-writing boilerplate just to get your project started.
+
+### Example:
+You've spent 20 minutes setting up Webpack, Typescript, and a testing suite for a Node project.  If you want to avoid this setup again, you'd make the project into a template with `new`, then `load` it in the future.
 
 ## Installation
 For now, the only installation method is to compile from source.  
