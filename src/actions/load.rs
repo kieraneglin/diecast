@@ -33,7 +33,7 @@ fn load_template(template: &Template) {
 
 fn replace_dir_contents(template: &Template) {
     if directory::empty(".") || should_replace_contents() {
-        delete_dir_contents();
+        remove_dir_contents();
         copy_template(template);
         print_success_message(template);
     }
@@ -46,7 +46,7 @@ fn copy_template(template: &Template) {
     copy_items(&files, ".", &copy_options).expect("Unable to copy template to current directory");
 }
 
-fn delete_dir_contents() {
+fn remove_dir_contents() {
     for entry in fs::read_dir(".").expect("Unable to read current directory") {
         let entry = entry.expect("Unable to parse directory entry");
         let path = entry.path();

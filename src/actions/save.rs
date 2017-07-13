@@ -16,10 +16,10 @@ pub fn main(matches: &ArgMatches) {
     let name = arguments.value_of("name").unwrap().to_string();
     let template = Template { language, name };
 
-    create_new_template(&template);
+    save_new_template(&template);
 }
 
-fn create_new_template(template: &Template) {
+fn save_new_template(template: &Template) {
     Template::create_sub_dir(&[&template.language]);
 
     verify_template_uniqueness(template);

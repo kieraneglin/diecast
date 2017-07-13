@@ -8,23 +8,23 @@ use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
-    let arguments = matches.subcommand_matches("delete").unwrap();
+    let arguments = matches.subcommand_matches("remove").unwrap();
     let language = arguments.value_of("language").unwrap().to_string();
     let name = arguments.value_of("name").unwrap().to_string();
     let template = Template { language, name };
 
-    delete_template(&template);
+    remove_template(&template);
 }
 
-fn delete_template(template: &Template) {
+fn remove_template(template: &Template) {
     if template.exists() {
         if should_remove_template() {
-            fs::remove_dir_all(template.file_path()).expect("Could not delete template");
+            fs::remove_dir_all(template.file_path()).expect("Could not remove template");
 
             // Remove language directory if there's no more entries in it.
             if directory::empty(Template::concat_sub_dir(&[&template.language])) {
                 fs::remove_dir(Template::concat_sub_dir(&[&template.language]))
-                    .expect("Could not delete parent template folder");
+                    .expect("Could not remove parent template folder");
             }
 
             print_success_message(template);
@@ -40,7 +40,7 @@ fn delete_template(template: &Template) {
 
 fn print_success_message(template: &Template) {
     println!(
-        "Successfully deleted {} for {}.",
+        "Successfully removed {} for {}.",
         &template.name.italic().green(),
         &template.language.italic().green()
     );
@@ -49,7 +49,7 @@ fn print_success_message(template: &Template) {
 fn should_remove_template() -> bool {
     print!(
         "{action} This cannot be undone. (y/n): ",
-        action = "Delete template?".red().underline(),
+        action = "Remove template?".red().underline(),
     );
 
     stdout().flush().expect("Unable to flush STDOUT");

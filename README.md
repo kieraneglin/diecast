@@ -25,7 +25,7 @@ If there's enough interest, I may start including releases and/or a Homebrew for
 This might work on Windows, but it's untested.  I'd stay away to avoid potential data loss.
 
 ## Usage
-There are four main functions within Diecast: `save`, `load`, `delete`, and `list`.  
+There are four main functions within Diecast: `save`, `load`, `remove`, and `list`.  
 
 Templates are stored in `~/.diecast`.  They have no Special Sauce™ associated with them, so you can create, edit, and delete a template directly from this directory if you so choose.
 
@@ -41,10 +41,10 @@ You can get this info by running `dt` without any args, or with `-h` <sup>(dc wa
 
 `load` replaces the contents of the current directory with the specified template.  Again, *this will remove the entire contents of the current directory.  This cannot be undone.*
 
-### Delete
-`dt delete <language> <name>`
+### Remove
+`dt remove <language> <name>`
 
-`delete` removes a template.  *This will destroy a template, removing its files.  This cannot be undone.*
+`remove` removes a template.  *This will destroy a template, removing its files.  This cannot be undone.*
 
 ### List
 `dt list <language (optional)>`

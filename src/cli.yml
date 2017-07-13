@@ -29,15 +29,15 @@ subcommands:
               help: The name of the template to load
               index: 2
               required: true
-    - delete:
-        about: Delete an existing template ('diecast delete -h' for more info)
+    - remove:
+        about: Delete an existing template ('diecast remove -h' for more info)
         args:
           - language:
-              help: The language or framework of the template to be deleted
+              help: The language or framework of the template to be removed
               index: 1
               required: true
           - name:
-              help: The name of the template to delete
+              help: The name of the template to remove
               index: 2
               required: true
     - list:

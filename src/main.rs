@@ -23,7 +23,7 @@ fn main() {
         "save" => actions::save::main(&matches),
         "load" => actions::load::main(&matches),
         "list" => actions::list::main(&matches),
-        "delete" => actions::delete::main(&matches),
+        "remove" => actions::remove::main(&matches),
         _ => unreachable!(),
     }
 }
