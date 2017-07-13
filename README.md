@@ -12,7 +12,7 @@ I offer no warranty on this software and I take no responsibility for any data l
 Diecast provides an easy way to store, recall, and manage project templates.  This is for people who hate wasting time re-writing boilerplate just to get your project started.
 
 ### Example:
-You've spent 20 minutes setting up Webpack, Typescript, and a testing suite for a Node project.  If you want to avoid this setup again, you'd make the project into a template with `new`, then `load` it in the future.
+You've spent 20 minutes setting up Webpack, Typescript, and a testing suite for a Node project.  If you want to avoid this setup again, you'd make the project into a template with `save`, then `load` it in the future.
 
 ## Installation
 For now, the only installation method is to compile from source.  
@@ -25,16 +25,16 @@ If there's enough interest, I may start including releases and/or a Homebrew for
 This might work on Windows, but it's untested.  I'd stay away to avoid potential data loss.
 
 ## Usage
-There are four main functions within Diecast: `new`, `load`, `delete`, and `list`.  
+There are four main functions within Diecast: `save`, `load`, `delete`, and `list`.  
 
 Templates are stored in `~/.diecast`.  They have no Special Sauce™ associated with them, so you can create, edit, and delete a template directly from this directory if you so choose.
 
 You can get this info by running `dt` without any args, or with `-h` <sup>(dc was already taken)</sup>.
 
-### New
-`dt new <language> <name>`
+### Save
+`dt save <language> <name>`
 
-`new` creates a new template and saves the contents of the current directory to it.
+`save` creates a new template and saves the contents of the current directory to it.
 
 ### Load
 `dt load <language> <name>`

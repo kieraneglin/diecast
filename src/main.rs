@@ -20,7 +20,7 @@ fn main() {
 
     // Unwrap is safe because clap ensures there's a value
     match matches.subcommand_name().unwrap() {
-        "new" => actions::new::main(&matches),
+        "save" => actions::save::main(&matches),
         "load" => actions::load::main(&matches),
         "list" => actions::list::main(&matches),
         "delete" => actions::delete::main(&matches),

@@ -7,8 +7,8 @@ settings:
     - ArgRequiredElseHelp
 
 subcommands:
-    - new:
-        about: Create a new template from the current directory ('diecast new -h' for more info)
+    - save:
+        about: Create a new template from the current directory ('diecast save -h' for more info)
         args:
           - language:
               help: The language or framework that a template is for

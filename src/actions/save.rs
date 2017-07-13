@@ -11,7 +11,7 @@ use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
-    let arguments = matches.subcommand_matches("new").unwrap();
+    let arguments = matches.subcommand_matches("save").unwrap();
     let language = arguments.value_of("language").unwrap().to_string();
     let name = arguments.value_of("name").unwrap().to_string();
     let template = Template { language, name };
