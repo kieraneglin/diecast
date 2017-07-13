@@ -3,6 +3,10 @@ name = "diecast"
 version = "0.1.0"
 authors = ["Kieran Eglin <kieran.eglin@gmail.com>"]
 
+[[bin]]
+path = "src/main.rs"
+name = "dt"
+
 [dependencies]
 glob = "0.2.11"
 colored = "1.5.2"
