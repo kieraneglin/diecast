@@ -51,6 +51,11 @@ You can get this info by running `dt` without any args, or with `-h` <sup>(dc wa
 
 `list` displays existing templates for a given language.  If no language is specified, all templates for all languages will be shown.
 
+## TODO:
+- [ ] Allow saving of a template from a GitHub repo
+- [ ] Allow loading of a template from a GitHub repo
+- [ ] Support `.diecastrc` files for configuration info
+
 ## Contributing
 If you want to contribute, don't hesitate to create an issue or PR! Since this project is in it's infancy, your input could help shape the project as a whole.
 
