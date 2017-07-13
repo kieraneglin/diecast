@@ -1,18 +1,37 @@
 name: diecast
+version: "0.1.0"
+about: A utility for creating and managing templates
+author: Kieran E. <https://github.com/kieraneglin>
 
 settings:
     - ArgRequiredElseHelp
 
-args:
-    - action:
-        help: example positional argument from yaml
-        index: 1
-        possible_values:
-            - new
-            - load
-    - language:
-        help: example positional argument from yaml
-        index: 2
-    - name:
-        help: example positional argument from yaml
-        index: 3
+subcommands:
+    - new:
+        about: Create a new template from the current directory ('diecast new -h' for more info)
+        args:
+          - language:
+              help: The language or framework that a template is for
+              index: 1
+              required: true
+          - name:
+              help: The desired name of the template
+              index: 2
+              required: true
+    - load:
+        about: Load an existing template into the current directory ('diecast load -h' for more info)
+        args:
+          - language:
+              help: The language or framework that a template is for
+              index: 1
+              required: true
+          - name:
+              help: The name of the template to load
+              index: 2
+              required: true
+    - list:
+        about: Show existing templates for all or one language ('diecast list -h' for more info)
+        args:
+          - language:
+              help: The language or framework to search within (optional)
+              index: 1

@@ -13,11 +13,14 @@ use clap::App;
 fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
-    let action = matches.value_of("action").unwrap().to_string();
+    let action = matches.value_of("action").unwrap_or("").to_string();
 
-    if action == "new" {
-        actions::new::main(&matches);
-    } else if action == "load" {
-        actions::load::main(&matches);
-    }
+// if action == "new" {
+//     actions::new::main(&matches);
+// } else if action == "load" {
+//     actions::load::main(&matches);
+// }
+
+
+    println!("{:#?}", matches);
 }
