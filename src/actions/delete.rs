@@ -1,9 +1,10 @@
 use std::fs;
 use colored::*;
+use std::process;
 use clap::ArgMatches;
 use helpers::directory;
 use helpers::template::Template;
-
+use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
@@ -17,15 +18,17 @@ pub fn main(matches: &ArgMatches) {
 
 fn delete_template(template: &Template) {
     if template.exists() {
-        fs::remove_dir_all(template.file_path()).expect("Could not delete template");
+        if should_remove_template() {
+            fs::remove_dir_all(template.file_path()).expect("Could not delete template");
 
-        // Remove language directory if there's no more entries in it.
-        if directory::empty(Template::concat_sub_dir(&[&template.language])) {
-            fs::remove_dir(Template::concat_sub_dir(&[&template.language]))
-                .expect("Could not delete parent template folder");
+            // Remove language directory if there's no more entries in it.
+            if directory::empty(Template::concat_sub_dir(&[&template.language])) {
+                fs::remove_dir(Template::concat_sub_dir(&[&template.language]))
+                    .expect("Could not delete parent template folder");
+            }
+
+            print_success_message(template);
         }
-
-        print_success_message(template);
     } else {
         println!(
             "Template {} for {} not found.",
@@ -41,4 +44,27 @@ fn print_success_message(template: &Template) {
         &template.name.italic().green(),
         &template.language.italic().green()
     );
+}
+
+fn should_remove_template() -> bool {
+    print!(
+        "{action} This cannot be undone. (y/n): ",
+        action = "Delete template?".red().underline(),
+    );
+
+    stdout().flush().expect("Unable to flush STDOUT");
+    let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
+    stdin().read_line(&mut answer).expect(
+        "Unable to parse input",
+    );
+    let answer = answer.trim_right();
+
+    if answer == "y" {
+        true
+    } else if answer == "n" {
+        false
+    } else {
+        println!("Unable to parse answer. Shutting down.");
+        process::exit(1);
+    }
 }
