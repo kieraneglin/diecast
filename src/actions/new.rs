@@ -9,7 +9,7 @@ use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
-    let arguments = matches.subcommand_matches("load").unwrap();
+    let arguments = matches.subcommand_matches("new").unwrap();
     let language = arguments.value_of("language").unwrap().to_string();
     let name = arguments.value_of("name").unwrap().to_string();
     let template = Template { language, name };
