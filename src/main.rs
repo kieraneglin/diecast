@@ -23,6 +23,7 @@ fn main() {
         "new" => actions::new::main(&matches),
         "load" => actions::load::main(&matches),
         "list" => actions::list::main(&matches),
+        "delete" => actions::delete::main(&matches),
         _ => unreachable!(),
     }
 }
