@@ -18,6 +18,7 @@ fn main() {
     match matches.subcommand_name().unwrap() {
         "new" => actions::new::main(&matches),
         "load" => actions::load::main(&matches),
+        "list" => actions::list::main(&matches),
         _ => unreachable!(),
     }
 }
