@@ -1,5 +1,4 @@
 use std::fs;
-use glob::glob;
 use colored::*;
 use std::process;
 use std::path::Path;
@@ -7,6 +6,8 @@ use clap::ArgMatches;
 use fs_extra::remove_items;
 use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
+use fs_extra::copy_items;
+use fs_extra::dir;
 
 pub fn main(matches: &ArgMatches) {
     let arguments = matches.subcommand_matches("new").unwrap();
@@ -40,19 +41,27 @@ fn verify_template_uniqueness(template: &Template) {
 fn copy_directory_to_template(template: &Template) {
     Template::create_sub_dir(&[&template.language, &template.name]);
 
-    for entry in glob("**/*").unwrap().filter_map(Result::ok) {
-        let filepath = &entry.display().to_string();
-        let metadata = Path::new(&filepath).metadata().unwrap();
+    // for entry in glob("**/*").unwrap().filter_map(Result::ok) {
+    //     let filepath = &entry.display().to_string();
+    //     let metadata = Path::new(&filepath).metadata().unwrap();
+    //
+    //     let mut destination = template.filepath();
+    //     destination.push(filepath);
+    //
+    //     if metadata.is_dir() {
+    //         Template::create_dir_if_doesnt_exist(&destination);
+    //     } else {
+    //         fs::copy(&filepath, destination).unwrap();
+    //     }
+    // }
 
-        let mut destination = template.filepath();
-        destination.push(filepath);
+    let copy_options = dir::CopyOptions::new();
+    let file_list = fs::read_dir(".")
+        .unwrap()
+        .map(|e| e.unwrap().path())
+        .collect(); // TODO: Revisit.  Why is it so hard to get a list of files?
 
-        if metadata.is_dir() {
-            Template::create_dir_if_doesnt_exist(&destination);
-        } else {
-            fs::copy(&filepath, destination).unwrap();
-        }
-    }
+    copy_items(&file_list, template.filepath(), &copy_options).unwrap();
 }
 
 fn should_replace_template() -> bool {

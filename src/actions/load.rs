@@ -1,9 +1,7 @@
 use std::fs;
 use colored::*;
-use glob::glob;
 use std::process;
 use fs_extra::dir;
-use std::path::Path;
 use clap::ArgMatches;
 use fs_extra::dir::ls;
 use fs_extra::copy_items;
@@ -49,14 +47,14 @@ fn copy_template(template: &Template) {
 }
 
 fn delete_dir_contents() {
-    for entry in glob("*").unwrap().filter_map(Result::ok) {
-        let filepath = &entry.display().to_string();
-        let metadata = Path::new(&filepath).metadata().unwrap();
+    for entry in fs::read_dir(".").unwrap() {
+        let entry = entry.unwrap();
+        let path = entry.path();
 
-        if metadata.is_dir() {
-            fs::remove_dir_all(filepath).unwrap();
+        if path.is_dir() {
+            fs::remove_dir_all(path).unwrap();
         } else {
-            fs::remove_file(filepath).unwrap();
+            fs::remove_file(path).unwrap();
         }
     }
 }
