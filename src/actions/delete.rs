@@ -1,8 +1,8 @@
 use std::fs;
 use colored::*;
 use clap::ArgMatches;
-use helpers::template::Template;
 use helpers::directory;
+use helpers::template::Template;
 
 
 pub fn main(matches: &ArgMatches) {
@@ -16,7 +16,7 @@ pub fn main(matches: &ArgMatches) {
 
 fn delete_template(template: &Template) {
     if template.exists() {
-        fs::remove_dir_all(template.filepath()).unwrap();
+        fs::remove_dir_all(template.file_path()).unwrap();
 
         // Remove language directory if there's no more entries in it.
         if directory::empty(Template::concat_sub_dir(&[&template.language])) {

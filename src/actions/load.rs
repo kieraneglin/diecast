@@ -3,10 +3,10 @@ use colored::*;
 use std::process;
 use fs_extra::dir;
 use clap::ArgMatches;
+use helpers::directory;
 use fs_extra::copy_items;
 use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
-use helpers::directory;
 
 pub fn main(matches: &ArgMatches) {
     let arguments = matches.subcommand_matches("load").unwrap();
@@ -39,7 +39,7 @@ fn replace_dir_contents(template: &Template) {
 }
 
 fn copy_template(template: &Template) {
-    let files = template.files();
+    let files = template.list_files();
     let copy_options = dir::CopyOptions::new();
 
     copy_items(&files, ".", &copy_options).unwrap();

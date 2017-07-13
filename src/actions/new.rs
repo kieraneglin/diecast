@@ -1,13 +1,13 @@
-use std::fs;
 use colored::*;
 use std::process;
+use fs_extra::dir;
 use std::path::Path;
 use clap::ArgMatches;
+use helpers::directory;
+use fs_extra::copy_items;
 use fs_extra::remove_items;
 use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
-use fs_extra::copy_items;
-use fs_extra::dir;
 
 pub fn main(matches: &ArgMatches) {
     let arguments = matches.subcommand_matches("new").unwrap();
@@ -42,12 +42,9 @@ fn copy_directory_to_template(template: &Template) {
     Template::create_sub_dir(&[&template.language, &template.name]);
 
     let copy_options = dir::CopyOptions::new();
-    let file_list = fs::read_dir(".")
-        .unwrap()
-        .map(|e| e.unwrap().path())
-        .collect(); // TODO: Revisit.  Why is it so hard to get a list of files?
+    let file_list = directory::list_files(".");
 
-    copy_items(&file_list, template.filepath(), &copy_options).unwrap();
+    copy_items(&file_list, template.file_path(), &copy_options).unwrap();
 }
 
 fn should_replace_template() -> bool {

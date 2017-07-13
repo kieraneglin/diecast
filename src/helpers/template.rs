@@ -1,6 +1,7 @@
 use std::fs;
 use std::env;
 use std::path::PathBuf;
+use helpers::directory;
 
 pub struct Template {
     pub language: String,
@@ -9,10 +10,10 @@ pub struct Template {
 
 impl Template {
     pub fn exists(&self) -> bool {
-        self.filepath().exists()
+        self.file_path().exists()
     }
 
-    pub fn filepath(&self) -> PathBuf {
+    pub fn file_path(&self) -> PathBuf {
         let mut path = Self::base_dir();
 
         path.push(&self.language);
@@ -21,11 +22,8 @@ impl Template {
         path
     }
 
-    pub fn files(&self) -> Vec<PathBuf> {
-        fs::read_dir(self.filepath())
-            .unwrap()
-            .map(|e| e.unwrap().path())
-            .collect() // TODO: Revisit.  Why is it so hard to get a list of files?
+    pub fn list_files(&self) -> Vec<PathBuf> {
+        directory::list_files(self.file_path())
     }
 
     pub fn concat_sub_dir(paths: &[&String]) -> PathBuf {
