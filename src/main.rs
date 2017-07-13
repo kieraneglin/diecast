@@ -13,14 +13,11 @@ use clap::App;
 fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
-    let action = matches.value_of("action").unwrap_or("").to_string();
 
-// if action == "new" {
-//     actions::new::main(&matches);
-// } else if action == "load" {
-//     actions::load::main(&matches);
-// }
-
-
-    println!("{:#?}", matches);
+    // Unwrap is safe because clap ensures there's a value
+    match matches.subcommand_name().unwrap() {
+        "new" => actions::new::main(&matches),
+        "load" => actions::load::main(&matches),
+        _ => unreachable!(),
+    }
 }
