@@ -1,6 +1,6 @@
 [package]
 name = "diecast"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Kieran Eglin <kieran.eglin@gmail.com>"]
 
 [[bin]]
