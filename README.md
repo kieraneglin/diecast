@@ -17,7 +17,7 @@ For now, the only installation method is to compile from source.
 1. Ensure Rust is installed and you're using the latest nightly.
 2. Clone this repo and run `cargo install`.
 
-If there's enough interest, I may start including releases and/or release a Homebrew formula.
+If there's enough interest, I may start including releases and/or a Homebrew formula.
 
 This might work on Windows, but it's untested.  I'd stay away to avoid potential data loss.
 

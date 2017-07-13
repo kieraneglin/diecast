@@ -3,11 +3,10 @@ use colored::*;
 use std::process;
 use fs_extra::dir;
 use clap::ArgMatches;
-use fs_extra::dir::ls;
 use fs_extra::copy_items;
-use std::collections::HashSet;
 use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
+use helpers::directory;
 
 pub fn main(matches: &ArgMatches) {
     let arguments = matches.subcommand_matches("load").unwrap();
@@ -32,7 +31,7 @@ fn load_template(template: &Template) {
 }
 
 fn replace_dir_contents(template: &Template) {
-    if dir_empty(".") || should_replace_contents() {
+    if directory::empty(".") || should_replace_contents() {
         delete_dir_contents();
         copy_template(template);
         print_success_message(template);
@@ -57,11 +56,6 @@ fn delete_dir_contents() {
             fs::remove_file(path).unwrap();
         }
     }
-}
-
-fn dir_empty(path: &str) -> bool {
-    let result = ls(path, &HashSet::new());
-    result.unwrap().items.is_empty()
 }
 
 fn should_replace_contents() -> bool {
