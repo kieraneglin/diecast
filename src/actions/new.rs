@@ -41,20 +41,6 @@ fn verify_template_uniqueness(template: &Template) {
 fn copy_directory_to_template(template: &Template) {
     Template::create_sub_dir(&[&template.language, &template.name]);
 
-    // for entry in glob("**/*").unwrap().filter_map(Result::ok) {
-    //     let filepath = &entry.display().to_string();
-    //     let metadata = Path::new(&filepath).metadata().unwrap();
-    //
-    //     let mut destination = template.filepath();
-    //     destination.push(filepath);
-    //
-    //     if metadata.is_dir() {
-    //         Template::create_dir_if_doesnt_exist(&destination);
-    //     } else {
-    //         fs::copy(&filepath, destination).unwrap();
-    //     }
-    // }
-
     let copy_options = dir::CopyOptions::new();
     let file_list = fs::read_dir(".")
         .unwrap()
