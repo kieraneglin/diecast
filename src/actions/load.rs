@@ -9,6 +9,7 @@ use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
+    // Unwrap is fine, since clap verifies these exist
     let arguments = matches.subcommand_matches("load").unwrap();
     let language = arguments.value_of("language").unwrap().to_string();
     let name = arguments.value_of("name").unwrap().to_string();
@@ -42,18 +43,18 @@ fn copy_template(template: &Template) {
     let files = template.list_files();
     let copy_options = dir::CopyOptions::new();
 
-    copy_items(&files, ".", &copy_options).unwrap();
+    copy_items(&files, ".", &copy_options).expect("Unable to copy template to current directory");
 }
 
 fn delete_dir_contents() {
-    for entry in fs::read_dir(".").unwrap() {
-        let entry = entry.unwrap();
+    for entry in fs::read_dir(".").expect("Unable to read current directory") {
+        let entry = entry.expect("Unable to parse directory entry");
         let path = entry.path();
 
         if path.is_dir() {
-            fs::remove_dir_all(path).unwrap();
+            fs::remove_dir_all(path).expect("Unable to delete subdirectory");
         } else {
-            fs::remove_file(path).unwrap();
+            fs::remove_file(path).expect("Unable to delete file");
         }
     }
 }
@@ -65,9 +66,11 @@ fn should_replace_contents() -> bool {
         action = "Delete everything".red().underline(),
     );
 
-    stdout().flush().unwrap();
+    stdout().flush().expect("Unable to flush STDOUT");
     let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
-    stdin().read_line(&mut answer).unwrap();
+    stdin().read_line(&mut answer).expect(
+        "Unable to parse input",
+    );
     let answer = answer.trim_right();
 
     if answer == "y" {

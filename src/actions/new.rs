@@ -10,6 +10,7 @@ use helpers::template::Template;
 use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
+    // Unwrap is fine, since clap verifies these exist
     let arguments = matches.subcommand_matches("new").unwrap();
     let language = arguments.value_of("language").unwrap().to_string();
     let name = arguments.value_of("name").unwrap().to_string();
@@ -31,7 +32,7 @@ fn verify_template_uniqueness(template: &Template) {
 
     if Path::new(&dir).exists() {
         if should_replace_template() {
-            remove_items(&vec![dir]).unwrap();
+            remove_items(&vec![dir]).expect("Unable to replace template");
         } else {
             process::exit(1);
         }
@@ -44,7 +45,8 @@ fn copy_directory_to_template(template: &Template) {
     let copy_options = dir::CopyOptions::new();
     let file_list = directory::list_files(".");
 
-    copy_items(&file_list, template.file_path(), &copy_options).unwrap();
+    copy_items(&file_list, template.file_path(), &copy_options)
+        .expect("Unable to copy current directory to template");
 }
 
 fn should_replace_template() -> bool {
@@ -54,9 +56,11 @@ fn should_replace_template() -> bool {
         consequence = "deleting existing template".red().underline(),
     );
 
-    stdout().flush().unwrap();
+    stdout().flush().expect("Unable to flush STDOUT");
     let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
-    stdin().read_line(&mut answer).unwrap();
+    stdin().read_line(&mut answer).expect(
+        "Unable to parse input",
+    );
     let answer = answer.trim_right();
 
     if answer == "y" {

@@ -5,6 +5,7 @@ use helpers::directory;
 use helpers::template::Template;
 
 pub fn main(matches: &ArgMatches) {
+    // Unwrap is fine, since clap verifies these exist
     let arguments = matches.subcommand_matches("list").unwrap();
     let language = arguments.value_of("language");
 
