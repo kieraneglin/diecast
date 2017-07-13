@@ -14,13 +14,18 @@ pub fn main(matches: &ArgMatches) {
     let name = arguments.value_of("name").unwrap().to_string();
     let template = Template { language, name };
 
+    create_new_template(&template);
+}
+
+fn create_new_template(template: &Template) {
+
     // Ensure the dir where templates are stored exists
     Template::create_dir_if_doesnt_exist(&Template::base_dir());
     Template::create_sub_dir(&[&template.language]);
 
-    verify_template_uniqueness(&template);
-    copy_directory_to_template(&template);
-    print_success_message(&template);
+    verify_template_uniqueness(template);
+    copy_directory_to_template(template);
+    print_success_message(template);
 }
 
 fn verify_template_uniqueness(template: &Template) {
