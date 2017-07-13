@@ -26,9 +26,7 @@ There are four main functions within Diecast: `new`, `load`, `delete`, and `list
 
 Templates are stored in `~/.diecast`.  They have no Special Sauce™ associated with them, so you can create, edit, and delete a template directly from this directory if you so choose.
 
-You can get this info by running `diecast` without any args, or with `-h`.
-
-**Note:** Diecast can be used as `diecast [ARGS]` or `dt [ARGS]` <sup>(dc was already taken)</sup>.  I'll be using the latter in my examples.
+You can get this info by running `dt` without any args, or with `-h` <sup>(dc was already taken)</sup>.
 
 ### New
 `dt new <language> <name>`
