@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use std::io::{stdin, stdout, Write};
 
 pub fn empty<P: AsRef<Path>>(dir: P) -> bool {
-    fs::read_dir(dir).unwrap().count() == 0
+    fs::read_dir(dir).expect("Could not read directory");.count() == 0
 }
 
 pub fn list_files<P: AsRef<Path>>(dir: P) -> Vec<PathBuf> {

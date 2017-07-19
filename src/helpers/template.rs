@@ -37,17 +37,17 @@ impl Template {
     }
 
     pub fn create_sub_dir(paths: &[&String]) {
-        fs::create_dir_all(Self::concat_sub_dir(paths)).unwrap();
+        fs::create_dir_all(Self::concat_sub_dir(paths)).expect("Could not create subdirectory");
     }
 
     pub fn create_dir_if_doesnt_exist(pathbuf: &PathBuf) {
         if !pathbuf.as_path().exists() {
-            fs::create_dir(pathbuf).unwrap();
+            fs::create_dir(pathbuf).expect("Could not create directory");
         }
     }
 
     pub fn base_dir() -> PathBuf {
-        let mut base = env::home_dir().unwrap();
+        let mut base = env::home_dir().expect("Could not find home directory");
         base.push(".diecast/");
 
         base
