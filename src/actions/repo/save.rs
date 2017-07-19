@@ -1,8 +1,8 @@
-use std::process;
 use colored::*;
+use std::process;
+use std::path::Path;
 use clap::ArgMatches;
 use git2::Repository;
-use std::path::Path;
 use helpers::directory;
 use helpers::template::Template;
 
