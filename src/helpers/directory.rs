@@ -1,5 +1,7 @@
 use std::fs;
+use std::process;
 use std::path::{Path, PathBuf};
+use std::io::{stdin, stdout, Write};
 
 pub fn empty<P: AsRef<Path>>(dir: P) -> bool {
     fs::read_dir(dir).unwrap().count() == 0
@@ -31,4 +33,22 @@ pub fn file_name(entry: &PathBuf) -> String {
         .to_owned()
         .into_string()
         .expect("Error parsing filename") // TODO: God, this is brutal.  Revisit.
+}
+
+pub fn confirm_overwrite() -> bool {
+    stdout().flush().expect("Unable to flush STDOUT");
+    let mut answer = String::new();
+    stdin().read_line(&mut answer).expect(
+        "Unable to parse input",
+    );
+    let answer = answer.trim_right();
+
+    if answer == "y" {
+        true
+    } else if answer == "n" {
+        false
+    } else {
+        println!("Unable to parse answer. Shutting down.");
+        process::exit(1);
+    }
 }

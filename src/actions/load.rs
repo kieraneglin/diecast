@@ -6,7 +6,6 @@ use clap::ArgMatches;
 use helpers::directory;
 use fs_extra::copy_items;
 use helpers::template::Template;
-use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
@@ -66,21 +65,7 @@ fn should_replace_contents() -> bool {
         action = "Delete everything".red().underline(),
     );
 
-    stdout().flush().expect("Unable to flush STDOUT");
-    let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
-    stdin().read_line(&mut answer).expect(
-        "Unable to parse input",
-    );
-    let answer = answer.trim_right();
-
-    if answer == "y" {
-        true
-    } else if answer == "n" {
-        false
-    } else {
-        println!("Unable to parse answer. Shutting down.");
-        process::exit(1);
-    }
+    directory::confirm_overwrite()
 }
 
 fn print_success_message(template: &Template) {

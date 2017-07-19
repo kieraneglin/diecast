@@ -1,10 +1,8 @@
 use std::fs;
 use colored::*;
-use std::process;
 use clap::ArgMatches;
 use helpers::directory;
 use helpers::template::Template;
-use std::io::{stdin, stdout, Write};
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
@@ -52,19 +50,5 @@ fn should_remove_template() -> bool {
         action = "Remove template?".red().underline(),
     );
 
-    stdout().flush().expect("Unable to flush STDOUT");
-    let mut answer = String::new(); // TODO: Revisit. Reading input can't actually be this hard
-    stdin().read_line(&mut answer).expect(
-        "Unable to parse input",
-    );
-    let answer = answer.trim_right();
-
-    if answer == "y" {
-        true
-    } else if answer == "n" {
-        false
-    } else {
-        println!("Unable to parse answer. Shutting down.");
-        process::exit(1);
-    }
+    directory::confirm_overwrite()
 }
