@@ -1,7 +1,7 @@
 [package]
 name = "diecast"
 version = "0.3.0"
-authors = ["Kieran Eglin <kieran.eglin@gmail.com>"]
+authors = ["Kieran Eglin <https://github.com/kieraneglin>"]
 
 [[bin]]
 path = "src/main.rs"
