@@ -3,7 +3,6 @@ extern crate clap;
 
 extern crate fs_extra;
 extern crate colored;
-extern crate glob;
 
 mod actions;
 mod helpers;
