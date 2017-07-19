@@ -3,6 +3,7 @@ extern crate clap;
 
 extern crate fs_extra;
 extern crate colored;
+extern crate git2;
 
 mod actions;
 mod helpers;
@@ -22,6 +23,7 @@ fn main() {
         "save" => actions::save::main(&matches),
         "load" => actions::load::main(&matches),
         "list" => actions::list::main(&matches),
+        "repo" => actions::repo::main(&matches),
         "remove" => actions::remove::main(&matches),
         _ => unreachable!(),
     }
