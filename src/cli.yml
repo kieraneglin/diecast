@@ -8,7 +8,7 @@ settings:
 
 subcommands:
     - save:
-        about: Create a new template from the current directory ('diecast save -h' for more info)
+        about: Create a new template from the current directory ('dt save -h' for more info)
         args:
           - language:
               help: The language or framework that a template is for
@@ -19,7 +19,7 @@ subcommands:
               index: 2
               required: true
     - load:
-        about: Load an existing template into the current directory ('diecast load -h' for more info)
+        about: Load an existing template into the current directory ('dt load -h' for more info)
         args:
           - language:
               help: The language or framework that a template is for
@@ -30,7 +30,7 @@ subcommands:
               index: 2
               required: true
     - remove:
-        about: Delete an existing template ('diecast remove -h' for more info)
+        about: Delete an existing template ('dt remove -h' for more info)
         args:
           - language:
               help: The language or framework of the template to be removed
@@ -41,8 +41,22 @@ subcommands:
               index: 2
               required: true
     - list:
-        about: Show existing templates for all or one language ('diecast list -h' for more info)
+        about: Show existing templates for all or one language ('dt list -h' for more info)
         args:
           - language:
               help: The language or framework to search within (optional)
               index: 1
+    - repo:
+        about: Load and save templates from a repo ('dt repo -h' for more info)
+        args:
+          - action:
+              help: The action to perform
+              index: 1
+              possible_values:
+                - save
+                - load
+              required: true
+          - url:
+              help: The repo URL to pull from
+              index: 2
+              required: true
