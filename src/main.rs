@@ -23,7 +23,7 @@ fn main() {
         "save" => actions::save::main(&matches),
         "load" => actions::load::main(&matches),
         "list" => actions::list::main(&matches),
-        "repo" => actions::repo::main(&matches),
+        "load-git" => actions::repo::load::main(&matches),
         "remove" => actions::remove::main(&matches),
         _ => unreachable!(),
     }

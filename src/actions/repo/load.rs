@@ -5,14 +5,10 @@ use helpers::directory;
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
-    let arguments = matches.subcommand_matches("repo").unwrap();
-    let action = arguments.value_of("action").unwrap();
+    let arguments = matches.subcommand_matches("load-git").unwrap();
     let url = arguments.value_of("url").unwrap();
 
-    match action {
-        "load" => load_repo(url),
-        _ => unreachable!(),
-    }
+    load_repo(url);
 }
 
 fn load_repo(url: &str) {

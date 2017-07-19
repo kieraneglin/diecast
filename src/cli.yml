@@ -46,17 +46,10 @@ subcommands:
           - language:
               help: The language or framework to search within (optional)
               index: 1
-    - repo:
-        about: Load and save templates from a repo ('dt repo -h' for more info)
+    - load-git:
+        about: Load a template from a repo ('dt load-git -h' for more info)
         args:
-          - action:
-              help: The action to perform
-              index: 1
-              possible_values:
-                - save
-                - load
-              required: true
           - url:
-              help: The repo URL to pull from
-              index: 2
+              help: The URL to load from
+              index: 1
               required: true
