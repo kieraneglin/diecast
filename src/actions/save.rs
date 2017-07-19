@@ -5,7 +5,6 @@ use std::path::Path;
 use clap::ArgMatches;
 use helpers::directory;
 use fs_extra::copy_items;
-use fs_extra::remove_items;
 use helpers::template::Template;
 
 pub fn main(matches: &ArgMatches) {
@@ -31,7 +30,7 @@ fn verify_template_uniqueness(template: &Template) {
 
     if Path::new(&dir).exists() {
         if should_replace_template() {
-            remove_items(&vec![dir]).expect("Unable to replace template");
+            directory::remove_dir_contents(dir);
         } else {
             process::exit(1);
         }

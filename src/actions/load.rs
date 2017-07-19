@@ -1,4 +1,3 @@
-use std::fs;
 use colored::*;
 use std::process;
 use fs_extra::dir;
