@@ -1,32 +1,55 @@
+use std::process;
 use colored::*;
 use clap::ArgMatches;
 use git2::Repository;
+use std::path::Path;
 use helpers::directory;
+use helpers::template::Template;
 
 pub fn main(matches: &ArgMatches) {
     // Unwrap is fine, since clap verifies these exist
-    let arguments = matches.subcommand_matches("load-git").unwrap();
+    let arguments = matches.subcommand_matches("save-git").unwrap();
+    let language = arguments.value_of("language").unwrap().to_string();
+    let name = arguments.value_of("name").unwrap().to_string();
     let url = arguments.value_of("url").unwrap();
+    let template = Template { language, name };
 
-    load_repo(url);
+    save_repo(&template, url);
 }
 
-fn load_repo(url: &str) {
-    if directory::empty(".") || should_replace_contents() {
-        directory::remove_dir_contents(".");
+fn save_repo(template: &Template, url: &str) {
+    verify_template_uniqueness(template);
 
-        match Repository::clone(url, ".") {
-            Ok(repo) => repo,
-            Err(e) => panic!("failed to clone: {}", e),
-        };
+    if Path::exists(&template.file_path()) {
+        directory::remove_dir_contents(template.file_path());
+    } else {
+        Template::create_sub_dir(&[&template.language, &template.name]);
+    }
+
+    match Repository::clone(url, template.file_path()) {
+        Ok(repo) => repo,
+        Err(e) => panic!("Failed to clone: {}", e),
+    };
+
+}
+
+fn verify_template_uniqueness(template: &Template) {
+    let dir = Template::concat_sub_dir(&[&template.language, &template.name]);
+
+    if Path::new(&dir).exists() {
+        if should_replace_template() {
+            directory::remove_dir_contents(dir);
+        } else {
+            process::exit(1);
+        }
     }
 }
 
-fn should_replace_contents() -> bool {
+fn should_replace_template() -> bool {
     print!(
-        "{error}. {action} in this directory and replace it with a template? (y/n): ",
-        error = "This directory not empty".yellow(),
-        action = "Delete everything".red().underline(),
+        "{error}. Replace it, {consequence}? (y/n): ",
+        error = "Template already exists".yellow(),
+        consequence = "deleting existing template".red().underline(),
     );
 
     directory::confirm_overwrite()

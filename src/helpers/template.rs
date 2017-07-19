@@ -1,7 +1,7 @@
 use std::fs;
 use std::env;
-use std::path::PathBuf;
 use helpers::directory;
+use std::path::PathBuf;
 
 pub struct Template {
     pub language: String,

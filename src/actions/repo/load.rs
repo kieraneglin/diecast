@@ -17,7 +17,7 @@ fn load_repo(url: &str) {
 
         match Repository::clone(url, ".") {
             Ok(repo) => repo,
-            Err(e) => panic!("failed to clone: {}", e),
+            Err(e) => panic!("Failed to clone: {}", e),
         };
     }
 }
