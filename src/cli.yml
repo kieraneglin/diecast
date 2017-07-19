@@ -53,3 +53,18 @@ subcommands:
               help: The URL to load from
               index: 1
               required: true
+    - save-git:
+        about: Save a template from a repo ('dt save-git -h' for more info)
+        args:
+          - language:
+              help: The language or framework that a template is for
+              index: 1
+              required: true
+          - name:
+              help: The desired name of the template
+              index: 2
+              required: true
+          - url:
+              help: The URL to load from
+              index: 3
+              required: true
