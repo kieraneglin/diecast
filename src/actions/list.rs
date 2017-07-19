@@ -36,7 +36,7 @@ fn show_all_language_templates() {
     let language_list = directory::list_sub_dirs(language_dir);
 
     for language in language_list {
-        let lang_name = directory::file_name(&language);
+        let lang_name = directory::file_name(&language).unwrap();
         show_language_templates(&lang_name);
     }
 }
@@ -45,7 +45,7 @@ fn print_templates_for_language(language: &str, template_list: Vec<PathBuf>) {
     println!("{}", language.cyan().bold().underline());
 
     for template in template_list {
-        let filename = directory::file_name(&template);
+        let filename = directory::file_name(&template).unwrap();
         println!("  - {}", filename.blue().italic());
     }
 }

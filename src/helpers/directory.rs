@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use std::io::{stdin, stdout, Write};
 
 pub fn empty<P: AsRef<Path>>(dir: P) -> bool {
-    fs::read_dir(dir).expect("Could not read directory");.count() == 0
+    fs::read_dir(dir).expect("Could not read directory").count() == 0
 }
 
 pub fn list_files<P: AsRef<Path>>(dir: P) -> Vec<PathBuf> {
@@ -26,13 +26,8 @@ pub fn list_sub_dirs(dir: PathBuf) -> Vec<PathBuf> {
         .collect()
 }
 
-pub fn file_name(entry: &PathBuf) -> String {
-    entry
-        .file_name()
-        .expect("Error parsing filename")
-        .to_owned()
-        .into_string()
-        .expect("Error parsing filename") // TODO: God, this is brutal.  Revisit.
+pub fn file_name(entry: &Path) -> Option<&str> {
+    entry.file_name().and_then(|s| s.to_str())
 }
 
 pub fn confirm_overwrite() -> bool {
