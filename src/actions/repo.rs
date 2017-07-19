@@ -17,6 +17,8 @@ pub fn main(matches: &ArgMatches) {
 
 fn load_repo(url: &str) {
     if directory::empty(".") || should_replace_contents() {
+        directory::remove_dir_contents(".");
+
         match Repository::clone(url, ".") {
             Ok(repo) => repo,
             Err(e) => panic!("failed to clone: {}", e),
