@@ -25,7 +25,7 @@ If there's enough interest, I may start including releases and/or a Homebrew for
 This might work on Windows, but it's untested.  I'd stay away to avoid potential data loss.
 
 ## Usage
-There are four main functions within Diecast: `save`, `load`, `remove`, and `list`.  
+There are six main functions within Diecast: `save`, `load`, `remove`, `list`, `save-git`, and `load-git`.  
 
 Templates are stored in `~/.diecast`.  They have no Special Sauce™ associated with them, so you can create, edit, and delete a template directly from this directory if you so choose.
 
@@ -36,10 +36,20 @@ You can get this info by running `dt` without any args, or with `-h` <sup>(dc wa
 
 `save` creates a new template and saves the contents of the current directory to it.
 
+### Save Git
+`dt save-git <language> <name> <url>`
+
+`save-git` creates a new template from the git repository specified.
+
 ### Load
 `dt load <language> <name>`
 
 `load` replaces the contents of the current directory with the specified template.  Again, *this will remove the entire contents of the current directory.  This cannot be undone.*
+
+### Load Git
+`dt load-git <url>`
+
+`load-git` replaces the contents of the current directory with the specified repo.  Again, *this will remove the entire contents of the current directory.  This cannot be undone.*
 
 ### Remove
 `dt remove <language> <name>`
@@ -52,8 +62,8 @@ You can get this info by running `dt` without any args, or with `-h` <sup>(dc wa
 `list` displays existing templates for a given language.  If no language is specified, all templates for all languages will be shown.
 
 ## TODO:
-- [ ] Allow saving of a template from a GitHub repo
-- [ ] Allow loading of a template from a GitHub repo
+- [x] ~~Allow saving of a template from a GitHub repo~~
+- [x] ~~Allow loading of a template from a GitHub repo~~
 - [ ] Support `.diecastrc` files for configuration info
 
 ## Contributing
