@@ -37,7 +37,7 @@ fn show_all_language_templates() {
 
     for language in language_list {
         let lang_name = directory::file_name(&language).unwrap();
-        show_language_templates(&lang_name);
+        show_language_templates(lang_name);
     }
 }
 

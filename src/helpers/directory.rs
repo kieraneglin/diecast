@@ -26,6 +26,19 @@ pub fn list_sub_dirs(dir: PathBuf) -> Vec<PathBuf> {
         .collect()
 }
 
+pub fn remove_dir_contents<P: AsRef<Path>>(dir: P) {
+    for entry in fs::read_dir(dir).expect("Unable to read current directory") {
+        let entry = entry.expect("Unable to parse directory entry");
+        let path = entry.path();
+
+        if path.is_dir() {
+            fs::remove_dir_all(path).expect("Unable to delete subdirectory");
+        } else {
+            fs::remove_file(path).expect("Unable to delete file");
+        }
+    }
+}
+
 pub fn file_name(entry: &Path) -> Option<&str> {
     entry.file_name().and_then(|s| s.to_str())
 }
